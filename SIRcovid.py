@@ -40,7 +40,7 @@ print('Realizando a simulação de Gillespie')
 t, S, E, I, R = EoN.Gillespie_simple_contagion(G, H, J, IC, return_statuses, tmax=float(150))
 
 # Pega dados reais
-result = pandas.read_csv('C:/Users/Bruno/PycharmProjects/COVID_Simulation/arquivos/CovidCE.csv', sep=';')
+result = pandas.read_csv('arquivos/CovidCE.csv', sep=';')
 # print(result)
 
 # print(result.values.transpose()[0])
@@ -55,18 +55,18 @@ Ob = Ob.astype(int)
 
 Simulacao = {'dias': t, 'Infectados': I, 'Obitos': Ob, 'Confirmados': I+R}
 
-print(t)
+# print(t)
 
 QF = pandas.DataFrame(data=Simulacao)
-QF.to_csv('C:/Users/Bruno/PycharmProjects/COVID_Simulation/arquivos/SimulacaoCovidCE.csv', index=False, sep=";", decimal=",")
+QF.to_csv('arquivos/SimulacaoCovidCE.csv', index=False, sep=";", decimal=",")
 
-print(QF)
+# print(QF)
 
 # ----------------------------------
 # Plota Simulação
 # ----------------------------------
 
-print('Simulação concluida, plotando')
+print('Simulação concluida, plotando ...')
 # plt.plot(t, S, label='Suscetiveis')
 plt.plot(t, E, label='Expostos')
 plt.plot(t, I, label='Infectados')
