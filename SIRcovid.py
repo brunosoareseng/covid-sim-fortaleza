@@ -1,3 +1,8 @@
+# Simulação SIR
+# Gillespie
+# Fortaleza-CE Simula para comparar com dados reais com subnotificação de 90%
+# -----------------------------------------------------------------------------
+
 import EoN
 import networkx as nx
 from collections import defaultdict
@@ -15,13 +20,13 @@ edge_attribute_dict = {edge: 0.5 + random.random() for edge in G.edges()}
 nx.set_node_attributes(G, values=node_attribute_dict, name='expose2infect_weight')
 nx.set_edge_attributes(G, values=edge_attribute_dict, name='transmission_weight')
 
-H = nx.DiGraph()  # For the spontaneous transitions
+H = nx.DiGraph()  # Transmissão espontânea
 H.add_node('S')
 H.add_edge('E', 'I', rate=0.19, weight_label='expose2infect_weight')
 H.add_edge('I', 'R', rate=0.095)
 
 
-J = nx.DiGraph()  # for the induced transitions
+J = nx.DiGraph()  # Transmissão induzida
 J.add_edge(('I', 'S'), ('I', 'E'), rate=0.1, weight_label='transmission_weight')
 IC = defaultdict(lambda: 'S')
 
