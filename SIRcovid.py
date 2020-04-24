@@ -1,6 +1,7 @@
 # Simulação SIR
 # Gillespie
 # Fortaleza-CE Simula para comparar com dados reais com subnotificação de 90%
+#
 # -----------------------------------------------------------------------------
 
 import EoN
