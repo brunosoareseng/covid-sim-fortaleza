@@ -27,7 +27,7 @@ H.add_edge('I', 'R', rate=0.095)
 
 
 J = nx.DiGraph()  # Transmissão induzida
-J.add_edge(('I', 'S'), ('I', 'E'), rate=0.09, weight_label='transmission_weight')
+J.add_edge(('I', 'S'), ('I', 'E'), rate=0.0933, weight_label='transmission_weight')
 IC = defaultdict(lambda: 'S')
 
 #plt.subplot(122)
