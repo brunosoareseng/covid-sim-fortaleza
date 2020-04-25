@@ -1,7 +1,6 @@
 # Simulação SIR
 # Gillespie
 # Fortaleza-CE Simula para comparar com dados reais com subnotificação de 90%
-#
 # -----------------------------------------------------------------------------
 
 import EoN
@@ -28,7 +27,7 @@ H.add_edge('I', 'R', rate=0.095)
 
 
 J = nx.DiGraph()  # Transmissão induzida
-J.add_edge(('I', 'S'), ('I', 'E'), rate=0.1, weight_label='transmission_weight')
+J.add_edge(('I', 'S'), ('I', 'E'), rate=0.09, weight_label='transmission_weight')
 IC = defaultdict(lambda: 'S')
 
 #plt.subplot(122)
