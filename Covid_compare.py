@@ -2,10 +2,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Lê dados reais
-result = pd.read_csv('C:/Users/Bruno/PycharmProjects/COVID_Simulation/arquivos/CovidCE.csv', sep=';')
+result = pd.read_csv('arquivos/CovidCE.csv', sep=';')
 
 # Lê dados da simulação
-Simulacao = pd.read_csv('C:/Users/Bruno/PycharmProjects/COVID_Simulation/arquivos/SimulacaoCovidCE_2020.04.22.csv', decimal=",", sep=";")
+Simulacao = pd.read_csv('arquivos/SimulacaoCovidCE.csv', decimal=",", sep=";")
 
 # Simulacao = {'dias': t, 'Infectados': I, 'Obitos': Ob, 'Confirmados': I+R}
 print(Simulacao)
