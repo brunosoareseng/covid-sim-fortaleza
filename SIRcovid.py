@@ -8,7 +8,7 @@ import networkx as nx
 from collections import defaultdict
 import matplotlib.pyplot as plt
 import random
-import pandas
+import pandas as pd
 import numpy as np
 
 N = 270000  # População de fortaleza
@@ -25,13 +25,9 @@ H.add_node('S')
 H.add_edge('E', 'I', rate=0.19, weight_label='expose2infect_weight')
 H.add_edge('I', 'R', rate=0.095)
 
-
 J = nx.DiGraph()  # Transmissão induzida
 J.add_edge(('I', 'S'), ('I', 'E'), rate=0.0933, weight_label='transmission_weight')
 IC = defaultdict(lambda: 'S')
-
-#plt.subplot(122)
-#nx.draw(G)
 
 for node in range(50):
     IC[node] = 'I'
@@ -40,7 +36,7 @@ print('Realizando a simulação de Gillespie')
 t, S, E, I, R = EoN.Gillespie_simple_contagion(G, H, J, IC, return_statuses, tmax=float(150))
 
 # Pega dados reais
-result = pandas.read_csv('arquivos/CovidCE.csv', sep=';')
+result = pd.read_csv('arquivos/CovidCE.csv', sep=';')
 # print(result)
 
 # print(result.values.transpose()[0])
@@ -49,18 +45,33 @@ result = pandas.read_csv('arquivos/CovidCE.csv', sep=';')
 # ----------------------------------
 # Salva dados em csv Simulação_COVID
 # ----------------------------------
-Ob = np.array(0.065*(R+I))
+Ob = np.array(0.065 * (R + I))
 Ob = np.around(Ob)
 Ob = Ob.astype(int)
 
-Simulacao = {'dias': t, 'Infectados': I, 'Obitos': Ob, 'Confirmados': I+R}
+Simulacao = {'dias': t, 'Infectados': I, 'Obitos': Ob, 'Confirmados': I + R}
 
 # print(t)
 
-QF = pandas.DataFrame(data=Simulacao)
-QF.to_csv('arquivos/SimulacaoCovidCE.csv', index=False, sep=";", decimal=",")
+QF = pd.DataFrame(data=Simulacao)
+# QF.to_csv('arquivos/SimulacaoCovidCE.csv', index=False, sep=";", decimal=",")
 
-# print(QF)
+QF['dias'] = QF['dias'].astype(int)
+QF['date'] = pd.to_datetime(QF['dias']+18336, unit='d')
+QF = QF.set_index(['date'])
+
+tabela = pd.concat([QF.groupby(pd.Grouper(freq='D'))['Obitos'].mean(),
+                    QF.groupby(pd.Grouper(freq='D'))['Confirmados'].mean(),
+                    QF.groupby(pd.Grouper(freq='D'))['Infectados'].mean()],
+                    axis=1, sort=False)
+tabela = tabela.dropna()
+tabela['Obitos'] = tabela['Obitos'].astype(int)
+tabela['Confirmados'] = tabela['Confirmados'].astype(int)
+tabela['Infectados'] = tabela['Infectados'].astype(int)
+
+tabela.to_csv('arquivos/SimulacaoCovidCE.csv', sep=';', decimal=',')
+
+print(tabela)
 
 # ----------------------------------
 # Plota Simulação
