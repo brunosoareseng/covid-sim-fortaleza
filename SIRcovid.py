@@ -22,8 +22,8 @@ nx.set_edge_attributes(G, values=edge_attribute_dict, name='transmission_weight'
 
 H = nx.DiGraph()  # Transmissão espontânea
 H.add_node('S')
-H.add_edge('E', 'I', rate=0.19, weight_label='expose2infect_weight')
-H.add_edge('I', 'R', rate=0.095)
+H.add_edge('E', 'I', rate=0.1809, weight_label='expose2infect_weight')
+H.add_edge('I', 'R', rate=0.090)
 
 J = nx.DiGraph()  # Transmissão induzida
 J.add_edge(('I', 'S'), ('I', 'E'), rate=0.0933, weight_label='transmission_weight')
